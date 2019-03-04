@@ -120,6 +120,15 @@ int main(int argc, char **argv) {
             continue;
         }
 
+        if (tokens[i].ty == '?') {
+            i++;
+            if (tokens[i].ty != TK_NUM)
+                error(i);
+            printf("  add rax, %d\n", tokens[i].val);
+            i++;
+            continue;
+        }
+
         error(i);
     }
 

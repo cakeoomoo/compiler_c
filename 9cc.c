@@ -46,6 +46,7 @@ typedef struct {
 Token tokens[100];
 
 #ifdef new_ver
+
 //syntax tree
 typedef struct Node {
   int ty;           // 演算子かND_NUM
@@ -125,21 +126,43 @@ Node *add() {
 
 //tokenize ver2 is to make syntax tree for (, * and /
 void tokenize_ver2(char *p) {
+    int i = 0;
+    while (*p) {
+        // 空白文字をスキップ
+        if (isspace(*p)) {
+            p++;
+            continue;
+        }
 
-    while(1) {
+        if (*p == '+' || *p == '-' || *p == '?') {
+            tokens[i].ty = *p;
+            tokens[i].input = p;
+            i++;
+            p++;
+            continue;
+        }
+
+        if (isdigit(*p)) {
+            tokens[i].ty = TK_NUM;
+            tokens[i].input = p;
+            tokens[i].val = strtol(p, &p, 10);
+            i++;
+            continue;
+        }
+
+        if (*p == '+' ) {
+            tokens_node = new_node();
+        }
 
 
-        tokens_node.
 
 
-
-
+        fprintf(stderr, "トークナイズできません: %s\n", p);
+        exit(1);
     }
 
-
-
-
-
+    tokens[i].ty = TK_EOF;
+    tokens[i].input = p;
 }
 
 
